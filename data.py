@@ -1,5 +1,5 @@
 from function import *
-from time import sleep
+from time import sleeppp
 
 for action in actions: 
     for sequence in range(no_sequences):
