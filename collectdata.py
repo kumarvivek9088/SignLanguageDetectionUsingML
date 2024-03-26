@@ -2,7 +2,18 @@
 import os
 import cv2
 cap=cv2.VideoCapture(0)
-directory='Image/'
+directory='Images/'
+
+# Create directory if it doesn't exist
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
+actions = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+for action in actions:
+    if not os.path.exists(directory+action):
+        os.makedirs(directory+action)
+        print(f'Directory {action} created')
+
 while True:
     _,frame=cap.read()
     count = {

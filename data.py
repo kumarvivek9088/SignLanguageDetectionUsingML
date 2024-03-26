@@ -1,6 +1,12 @@
 from function import *
 from time import sleep
 
+if(os.path.exists('MP_Data')):
+    print('MP_Data already exists')
+else:
+    os.makedirs('MP_Data')
+    print('MP_Data created')
+
 for action in actions: 
     for sequence in range(no_sequences):
         try: 
@@ -25,13 +31,15 @@ with mp_hands.Hands(
 
                 # Read feed
                 # ret, frame = cap.read()
-                frame=cv2.imread('Image/{}/{}.png'.format(action,sequence))
+                path = 'Images/{}/{}.png'.format(action,sequence)
+                print(path)
+                frame=cv2.imread('Images/{}/{}.png'.format(action,sequence))
                 # frame=cv2.imread('{}{}.png'.format(action,sequence))
                 # frame=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 
                 # Make detections
                 image, results = mediapipe_detection(frame, hands)
-#                 print(results)
+                print(results)
 
                 # Draw landmarks
                 draw_styled_landmarks(image, results)
