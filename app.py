@@ -47,17 +47,20 @@ with mp_hands.Hands(
         frame=cv2.rectangle(frame,(0,40),(300,400),255,2)
         # frame=cv2.putText(frame,"Active Region",(75,25),cv2.FONT_HERSHEY_COMPLEX_SMALL,2,255,2)
         image, results = mediapipe_detection(cropframe, hands)
-        # print(results)
-        
+       
+        cv2.waitKey(100)
+
         # Draw landmarks
-        # draw_styled_landmarks(image, results)
+        #draw_styled_landmarks(image, results)
+
+
         # 2. Prediction logic
         keypoints = extract_keypoints(results)
         sequence.append(keypoints)
-        sequence = sequence[-30:]
+        sequence = sequence[-15:]
 
         try: 
-            if len(sequence) == 30:
+            if len(sequence) == 15:
                 res = model.predict(np.expand_dims(sequence, axis=0))[0]
                 print(actions[np.argmax(res)])
                 predictions.append(np.argmax(res))
@@ -79,7 +82,7 @@ with mp_hands.Hands(
                     accuracy=accuracy[-1:]
 
                 # Viz probabilities
-                # frame = prob_viz(res, actions, frame, colors,threshold)
+                frame = prob_viz(res, actions, frame, colors,threshold)
         except Exception as e:
             # print(e)
             pass
